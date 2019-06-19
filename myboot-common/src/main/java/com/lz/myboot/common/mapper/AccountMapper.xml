@@ -135,4 +135,12 @@
       portrait = #{portrait,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 以下为人工编码 -->
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * from account where username = #{name}
+  </select>
+
+
+
 </mapper>

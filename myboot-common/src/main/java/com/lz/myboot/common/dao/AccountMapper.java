@@ -50,4 +50,10 @@ public interface AccountMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Account record);
+
+    /************************************************
+     * 以下为人工编码
+     ***********************************************/
+
+    Account findByName(String name);
 }
