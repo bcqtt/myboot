@@ -1,4 +1,4 @@
-package com.lz.myboot.shiro;
+package com.lz.myboot.common.vo;
 
 import com.lz.myboot.common.model.Account;
 import lombok.Data;
