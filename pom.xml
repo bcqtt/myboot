@@ -20,6 +20,7 @@
     <modules>
         <module>myboot-common</module>
         <module>myboot-service</module>
+        <module>myboot-mq</module>
     </modules>
 
     <properties>
