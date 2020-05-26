@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication
-@MapperScan("com.lz.myboot.common.dao")
+@MapperScan(basePackages = { "com.lz.myboot.common.dao","com.lz.myboot.mapper" })
 public class MyBootApplication {
 
 	public static void main(String[] args) {
