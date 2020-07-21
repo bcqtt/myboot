@@ -1,6 +1,7 @@
 package com.lz.myboot.fsm.audit;
 
 public enum AuditType {
+    START_STATE(0),
     FIRST_APPLY_ONLINE(1),
     UPDATED_APPLY_ONLINE(2),
     ONLINE_APPLY_OFFLINE(3),

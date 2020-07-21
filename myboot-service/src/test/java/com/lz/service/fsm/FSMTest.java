@@ -1,17 +1,29 @@
 package com.lz.service.fsm;
 
+import com.lz.myboot.MyBootApplication;
 import com.lz.myboot.fsm.*;
 import com.lz.myboot.fsm.audit.AuditContext;
 import com.lz.myboot.fsm.audit.AuditEvent;
 import com.lz.myboot.fsm.audit.AuditMachine;
 import com.lz.myboot.fsm.audit.AuditState;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.squirrelframework.foundation.fsm.StateMachineBuilder;
 import org.squirrelframework.foundation.fsm.StateMachineBuilderFactory;
 import org.squirrelframework.foundation.fsm.UntypedStateMachine;
 import org.squirrelframework.foundation.fsm.UntypedStateMachineBuilder;
 
+@Slf4j
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {MyBootApplication.class})
 public class FSMTest {
+
+    @Autowired
+    private AuditMachine auditMachine;
 
     @Test
     public void test1(){
@@ -48,23 +60,22 @@ public class FSMTest {
         AuditContext context = new AuditContext();
         context.setOperatType(1);
 
-        StateMachineBuilder<AuditMachine, AuditState, AuditEvent, AuditContext> builder =
-                StateMachineBuilderFactory.create(AuditMachine.class,AuditState.class,AuditEvent.class,AuditContext.class);
+//        StateMachineBuilder<AuditMachine, AuditState, AuditEvent, AuditContext> builder =
+//                StateMachineBuilderFactory.create(AuditMachine.class,AuditState.class,AuditEvent.class,AuditContext.class);
+//        builder.externalTransition().from(AuditState.NOT_SUBMIT).to(AuditState.ONLINE_AUDITING).on(AuditEvent.SUBMIT_AUDITING).callMethod("submitAudit");
+//        builder.externalTransition().from(AuditState.ONLINE_AUDITING).to(AuditState.PASSED).on(AuditEvent.PASS_AUDITING).callMethod("passedAudit");
+//        builder.externalTransition().from(AuditState.ONLINE_AUDITING).to(AuditState.NOT_SUBMIT).on(AuditEvent.REPEAL_AUDITING).callMethod("repealAudit");
+//        builder.externalTransition().from(AuditState.ONLINE_AUDITING).to(AuditState.REJECTED).on(AuditEvent.REJECT_AUDITING).callMethod("rejectAudit");
+//        builder.externalTransition().from(AuditState.PASSED).to(AuditState.OFFLINE_AUDITING).on(AuditEvent.APPLY_OFFLINE).callMethod("applyOffline");
+//        builder.externalTransition().from(AuditState.OFFLINE_AUDITING).to(AuditState.PASSED).on(AuditEvent.PASS_AUDITING).callMethod("passedAudit");
+//        builder.externalTransition().from(AuditState.OFFLINE_AUDITING).to(AuditState.PASSED).on(AuditEvent.REPEAL_AUDITING).callMethod("repealAudit");
+//        builder.externalTransition().from(AuditState.OFFLINE_AUDITING).to(AuditState.REJECTED).on(AuditEvent.REJECT_AUDITING).callMethod("rejectAudit");
+//        AuditMachine machine = builder.newStateMachine(AuditState.NOT_SUBMIT);
 
-        builder.externalTransition().from(AuditState.NOT_SUBMIT).to(AuditState.ONLINE_AUDITING).on(AuditEvent.SUBMIT_AUDITING).callMethod("submitAudit");
-        builder.externalTransition().from(AuditState.ONLINE_AUDITING).to(AuditState.PASSED).on(AuditEvent.PASS_AUDITING).callMethod("passedAudit");
-        builder.externalTransition().from(AuditState.ONLINE_AUDITING).to(AuditState.NOT_SUBMIT).on(AuditEvent.REPEAL_AUDITING).callMethod("repealAudit");
-        builder.externalTransition().from(AuditState.ONLINE_AUDITING).to(AuditState.REJECTED).on(AuditEvent.REJECT_AUDITING).callMethod("rejectAudit");
-        builder.externalTransition().from(AuditState.PASSED).to(AuditState.OFFLINE_AUDITING).on(AuditEvent.APPLY_OFFLINE).callMethod("applyOffline");
-        builder.externalTransition().from(AuditState.OFFLINE_AUDITING).to(AuditState.PASSED).on(AuditEvent.PASS_AUDITING).callMethod("passedAudit");
-        builder.externalTransition().from(AuditState.OFFLINE_AUDITING).to(AuditState.PASSED).on(AuditEvent.REPEAL_AUDITING).callMethod("repealAudit");
-        builder.externalTransition().from(AuditState.OFFLINE_AUDITING).to(AuditState.REJECTED).on(AuditEvent.REJECT_AUDITING).callMethod("rejectAudit");
-
-        AuditMachine machine = builder.newStateMachine(AuditState.NOT_SUBMIT);
-        machine.fire(AuditEvent.SUBMIT_AUDITING,context);
-        System.out.println("【当前状态为】： " + machine.getCurrentState());
-        machine.fire(AuditEvent.PASS_AUDITING,context);
-        System.out.println("【当前状态为】： " + machine.getCurrentState());
+        auditMachine.fire(AuditEvent.SUBMIT_AUDITING,context);
+        log.info("【当前状态为】： " + auditMachine.getCurrentState());
+        auditMachine.fire(AuditEvent.PASS_AUDITING,context);
+        log.info("【当前状态为】： " + auditMachine.getCurrentState());
     }
 
 }

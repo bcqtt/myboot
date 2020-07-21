@@ -13,7 +13,7 @@ public class AuditTypeMachine extends AbstractStateMachine<AuditTypeMachine, Aud
     }
 
     public void onlineApplyOffline(AuditType from, AuditType to, AuditEvent event, AuditContext context) {
-        System.out.println("【已在线申请下线】 from：" + from + ", to:" + to +", event:" +event +", context:" + context.getOperatType() );
+        System.out.println("【已上线申请下线】 from：" + from + ", to:" + to +", event:" +event +", context:" + context.getOperatType() );
     }
 
     public void offlineApplyOnline(AuditType from, AuditType to, AuditEvent event, AuditContext context) {
